@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="{% static 'C:\Users\ACCA\OneDrive\Desktop\Procrastinot\Timer\static\css\style.css' %}">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="{% url 'login' %}">Login</a></li>
+                <!-- Other nav items -->
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Procrastinot</p>
+    </footer>
+
+    <script src="{% static 'C:\Users\ACCA\OneDrive\Desktop\Procrastinot\Timer\static\js\scripts.js' %}"></script>
+</body>
+</html>

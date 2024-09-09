@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Procrastinot - Your Virtual Study Planner</title>
+    
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'C:\Users\ACCA\OneDrive\Desktop\Procrastinot\Timer\static\logo\icon.png' %}"/>
+    
+    <!-- External Stylesheets -->
+    <link rel="stylesheet" href="{% static 'C:\Users\ACCA\OneDrive\Desktop\Procrastinot\Timer\static\css\style.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header class="header">
+        <nav class="navbar">
+            <a class="navbar-brand" href="#">ProcrastiNOT</a>
+            <div class="navbar-nav">
+                <a class="nav-link" href="#">Home</a>
+                <a class="nav-link" href="#">Features</a>
+                <a class="nav-link" href="#">About</a>
+                <a class="nav-link btn btn-login" href="{% url 'login' %}">Login</a>
+                <a class="nav-link btn btn-register" href="{% url 'register' %}" style="margin-right: 2cm;">Register</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>Welcome to ProcrastiNOT</h1>
+        <p>Your Ultimate Study Planner to Boost Productivity. ProcrastiNOT offers a range of features designed to help you stay focused and manage your study time effectively. With tools like task management, a Pomodoro timer, and detailed progress tracking, you can easily organize your study sessions and achieve your goals with confidence.</p>
+    </section>  
+
+    <!-- Features Section -->
+    <section class="features">
+        <h2>Features</h2>
+        <div class="row">
+            <div class="feature-item">
+                <i class="fa fa-calendar-check"></i>
+                <h3>Task Management</h3>
+                <p>Organize and prioritize your tasks efficiently.</p>
+            </div>
+            <div class="feature-item">
+                <i class="fa fa-clock"></i>
+                <h3>Pomodoro Timer</h3>
+                <p>Focus on your tasks with the Pomodoro technique.</p>
+            </div>
+            <div class="feature-item">
+                <i class="fa fa-chart-bar"></i>
+                <h3>Progress Tracking</h3>
+                <p>Monitor your study progress over time.</p>
+            </div>
+            <div class="feature-item">
+                <i class="fa fa-bullseye"></i>
+                <h3>Goal Setting</h3>
+                <p>Set clear goals and stay on track to achieve them.</p>
+            </div>
+            <div class="feature-item">
+                <i class="fa fa-plug"></i>
+                <h3>Connected Apps</h3>
+                <p>Integrate with other applications for a seamless experience.</p>
+            </div>
+            <div class="feature-item">
+                <i class="fa fa-calendar-alt"></i>
+                <h3>Calendar</h3>
+                <p>Keep track of your schedule and important dates with the built-in calendar.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about">
+        <div class="container">
+            <h2>About Procrastinot</h2>
+            <p>Procrastinot is an all-in-one productivity tool designed to enhance your study routine. It features comprehensive task management, a customizable Pomodoro timer, and robust progress tracking to help you stay organized and motivated. Whether you're setting goals, tracking your study time, or integrating with other apps, Procrastinot provides everything you need to optimize your productivity and achieve your academic goals efficiently.</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>© 2024 ProcrastiNOT - All Rights Reserved | <a href="#">Privacy Policy</a></p>
+    </footer>
+</body>
+</html>

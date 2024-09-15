@@ -136,6 +136,9 @@ STATICFILES_DIRS = [
 # For production, collect static files into this directory
 STATIC_ROOT = BASE_DIR / "static"
 
+# settings.py
+LOGIN_REDIRECT_URL = '/plan/'
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 

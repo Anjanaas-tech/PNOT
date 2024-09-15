@@ -58,7 +58,6 @@ html {
 /* Hero Section with Parallax Effect */
 .hero {
     height: 100vh; /* Full viewport height */
-    background-image: linear-gradient(to right, rgba(0, 0, 0, 0.5), rgba(75, 0, 130, 0.5)), url('/static/images/study.jpg');
     background-size: cover; /* Ensures the image covers the entire section */
     background-position: center; /* Keeps the image centered */
     background-attachment: fixed; /* Adds a parallax effect */

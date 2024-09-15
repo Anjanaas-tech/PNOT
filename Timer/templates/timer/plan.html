@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Study Plan</title>
+</head>
+<body>
+
+    <div class="main-content">
+        <h1>Your Study Plan</h1>
+        <div class="calendar">
+            <!-- Calendar code goes here -->
+        </div>
+
+        <div class="task-list">
+            <h2>Tasks</h2>
+            <!-- Loop through user tasks -->
+            <ul>
+                {% for task in tasks %}
+                <li>
+                    <strong>{{ task.title }}</strong>
+                    <span>Due: {{ task.due_date }}</span>
+                    <span>Status: {{ task.status }}</span>
+                    <a href="{% url 'edit_task' task.id %}">Edit</a> | 
+                    <a href="{% url 'delete_task' task.id %}">Delete</a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div class="side-menu">
+            <ul>
+                <li><a href="{% url 'today_tasks' %}">Today's Tasks</a></li>
+                <li><a href="{% url 'calendar_view' %}">Full Calendar</a></li>
+                <li><a href="{% url 'timer' %}">Pomodoro Timer</a></li>
+                <li><a href="{% url 'analytics' %}">Progress Analytics</a></li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

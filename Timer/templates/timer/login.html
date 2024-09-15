@@ -159,7 +159,6 @@
 
     </style>
 </head>
-
 <body>
     <header>
         <nav>
@@ -169,11 +168,10 @@
             </ul>
         </nav>
     </header>
-
     <main>
         <div class="login-container">
             <h2>Welcome Back, Procrastinator!</h2>
-            <form method="post">
+            <form method="post"action="/plan/">>
                 {% csrf_token %}
                 <input type="hidden" name="csrfmiddlewaretoken" value="token">
                 <p>
@@ -188,7 +186,6 @@
             </form>
         </div>
     </main>
-
     <footer>
         <p>&copy; 2024 Procrastinot - Keep Procrastinating, But Better!</p>
     </footer>

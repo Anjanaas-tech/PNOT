@@ -1,12 +1,240 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Timer View</title>
+    <title>Pomodoro Timer</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to right, #ff7e5f, #feb47b);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+        }
+
+        .timer-container {
+            background: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            width: 80%;
+            max-width: 900px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .timer-section {
+            text-align: center;
+            width: 40%;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            animation: fadeInDown 1s ease;
+        }
+
+        .time {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+            animation: pulse 1.5s infinite;
+        }
+
+        .mode {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: #00ffcc;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        button {
+            background-color: #ffffff;
+            color: #333;
+            border: none;
+            padding: 15px 30px;
+            font-size: 18px;
+            cursor: pointer;
+            border-radius: 10px;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        button:hover {
+            transform: translateY(-5px);
+            background-color: #ff7e5f;
+            color: white;
+        }
+
+        .customization-section {
+            width: 55%;
+            text-align: center;
+        }
+
+        .customization {
+            margin-top: 20px;
+            width: 100%;
+        }
+
+        .customization input {
+            padding: 10px;
+            width: 80px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            font-size: 18px;
+            text-align: center;
+        }
+
+        .customization button {
+            margin-left: 15px;
+            background-color: #00ffcc;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .customization button:hover {
+            background-color: #007f66;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+        }
+    </style>
 </head>
+
 <body>
-    <h1>Timer</h1>
-    <!-- Insert your timer content here -->
+    <div class="timer-container">
+        <!-- Timer Section -->
+        <div class="timer-section">
+            <h1>Pomodoro Timer</h1>
+            <div class="time" id="timer">25:00</div>
+            <div class="mode" id="mode">Focus</div>
+            <div class="buttons">
+                <button onclick="startTimer()">Start</button>
+                <button onclick="pauseTimer()">Pause</button>
+                <button onclick="resetTimer()">Reset</button>
+            </div>
+        </div>
+
+        <!-- Customization Section -->
+        <div class="customization-section">
+            <h3>Customize Timer</h3>
+            <div class="customization">
+                <label for="pomodoro-time">Pomodoro:</label>
+                <input type="number" id="pomodoro-time" placeholder="25" min="1"> min<br><br>
+                &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;<label for="break">Break:</label>
+                <input type="number" id="break" placeholder="5" min="1"> min<br><br>
+                <button onclick="customizeTimer()">Set Time</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let timer;
+        let timeLeft = 1500; // Default 25 minutes for Pomodoro
+        let isPaused = false;
+        let currentMode = "Focus";
+
+        const timerDisplay = document.getElementById('timer');
+        const modeDisplay = document.getElementById('mode');
+
+        function startTimer() {
+            if (!isPaused) {
+                clearInterval(timer);
+                timer = setInterval(countdown, 1000);
+            } else {
+                isPaused = false;
+            }
+        }
+
+        function pauseTimer() {
+            isPaused = true;
+            clearInterval(timer);
+        }
+
+        function resetTimer() {
+            clearInterval(timer);
+            timeLeft = 1500; // Reset to 25 minutes
+            timerDisplay.innerHTML = "25:00";
+            modeDisplay.innerHTML = "Focus";
+        }
+
+        function countdown() {
+            if (timeLeft > 0) {
+                timeLeft--;
+                const minutes = Math.floor(timeLeft / 60);
+                const seconds = timeLeft % 60;
+                timerDisplay.innerHTML = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+            } else {
+                clearInterval(timer);
+                switchMode();
+            }
+        }
+
+        function switchMode() {
+            if (currentMode === "Focus") {
+                currentMode = "Break";
+                timeLeft = 300; // 5 minutes break
+            } else {
+                currentMode = "Focus";
+                timeLeft = 1500; // 25 minutes
+            }
+            modeDisplay.innerHTML = currentMode;
+            startTimer();
+        }
+
+        function customizeTimer() {
+            const pomodoroTime = document.getElementById('pomodoro-time').value * 60 || 1500;
+            const breakTime = document.getElementById('break').value * 60 || 300;
+
+            if (currentMode === "Focus") {
+                timeLeft = pomodoroTime;
+            } else if (currentMode === "Break") {
+                timeLeft = breakTime;
+            }
+            timerDisplay.innerHTML = `${Math.floor(timeLeft / 60)}:00`;
+        }
+    </script>
 </body>
+
 </html>

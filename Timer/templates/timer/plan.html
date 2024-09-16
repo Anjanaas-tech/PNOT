@@ -4,39 +4,178 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Study Plan</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+
+        .main-content {
+            width: 90%;
+            margin: auto;
+            padding: 20px;
+            max-width: 1200px;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 36px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .study-plan {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+        }
+
+        .plan-column {
+            width: 48%;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            padding: 20px;
+        }
+
+        h2 {
+            font-size: 24px;
+            color: #555;
+            margin-bottom: 10px;
+        }
+
+        .side-menu ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .side-menu ul li {
+            margin-bottom: 10px;
+        }
+
+        .side-menu ul li a {
+            text-decoration: none;
+            font-size: 18px;
+            color: #333;
+            background-color: #f1f1f1;
+            padding: 10px 20px;
+            border-radius: 5px;
+            display: block;
+        }
+
+        .side-menu ul li a:hover {
+            background-color: #ddd;
+        }
+
+        .task-list ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .task-list ul li {
+            background-color: #f1f1f1;
+            margin-bottom: 10px;
+            padding: 15px;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .task-list ul li strong {
+            font-size: 18px;
+            color: #333;
+        }
+
+        .task-list ul li span {
+            margin-left: 10px;
+            font-size: 14px;
+            color: #777;
+        }
+
+        .task-list ul li a {
+            color: #007bff;
+            text-decoration: none;
+            margin-left: 15px;
+        }
+
+        .expected-hours {
+            margin-bottom: 20px;
+        }
+
+        .expected-hours input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        .topics-list input {
+            margin-right: 10px;
+        }
+
+        /* Additional Styles for Features Section */
+        .feature-item {
+            text-align: center;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .feature-item h3 {
+            margin-top: 10px;
+            font-size: 1.5rem;
+        }
+
+        .feature-item p {
+            margin-top: 10px;
+            font-size: 1rem;
+            color: #777;
+        }
+
+        .fa {
+            font-size: 2rem;
+            color: #007bff;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .study-plan {
+                flex-direction: column;
+            }
+
+            .plan-column {
+                width: 100%;
+                margin-bottom: 20px;
+            }
+        }
+    </style>
 </head>
 <body>
 
     <div class="main-content">
-        <h1>Your Study Plan</h1>
-        <div class="calendar">
-            <!-- Calendar code goes here -->
-        </div>
+        <h1>Study Plan</h1>
 
-        <div class="task-list">
-            <h2>Tasks</h2>
-            <!-- Loop through user tasks -->
-            <ul>
-                {% for task in tasks %}
-                <li>
-                    <strong>{{ task.title }}</strong>
-                    <span>Due: {{ task.due_date }}</span>
-                    <span>Status: {{ task.status }}</span>
-                    <a href="{% url 'edit_task' task.id %}">Edit</a> | 
-                    <a href="{% url 'delete_task' task.id %}">Delete</a>
-                </li>
-                {% endfor %}
-            </ul>
-        </div>
-
-        <div class="side-menu">
-            <ul>
-                <li><a href="{% url 'today_tasks' %}">Today's Tasks</a></li>
-                <li><a href="{% url 'calendar_view' %}">Full Calendar</a></li>
-                <li><a href="{% url 'timer' %}">Pomodoro Timer</a></li>
-                <li><a href="{% url 'analytics' %}">Progress Analytics</a></li>
-            </ul>
+        <!-- Links to App Features -->
+        <div class="study-plan">
+            <div class="plan-column side-menu">
+                <h2>Study Tools</h2>
+                <ul>
+                    <li><a href="{% url 'today_tasks' %}">To-do List</a></li>
+                    <li><a href="{% url 'calendar_view' %}">Full Calendar</a></li>
+                    <li><a href="{% url 'timer' %}">Pomodoro Timer</a></li>
+                    <li><a href="{% url 'analytics' %}">Progress Analytics</a></li>
+                    <li><a href="{% url 'goal' %}">Goal Setting</a></li>
+                    <li><a href="{% url 'edit_task' %}">Connected Apps</a></li>
+                </ul>
+            </div>
         </div>
     </div>
+
 </body>
 </html>

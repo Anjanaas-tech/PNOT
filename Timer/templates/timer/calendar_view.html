@@ -4,9 +4,223 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calendar View</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f5f5;
+        }
+
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-size: 24px;
+        }
+
+        .calendar-container {
+            display: flex;
+            padding: 20px;
+            justify-content: space-between;
+        }
+
+        .subjects-sidebar {
+            width: 20%;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        .subject {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            background-color: #e0e0e0;
+        }
+
+        .subject .subject-label {
+            font-weight: bold;
+        }
+
+        .subject .subject-hours {
+            font-size: 14px;
+        }
+
+        .calendar {
+            width: 75%;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .calendar-header button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .calendar-header h2 {
+            font-size: 24px;
+        }
+
+        .days {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .days div {
+            width: calc(100% / 7);
+            text-align: center;
+            padding: 10px 0;
+            font-weight: bold;
+        }
+
+        .dates {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .dates div {
+            width: calc(100% / 7);
+            padding: 20px;
+            text-align: center;
+            border: 1px solid #ddd;
+            height: 100px;
+        }
+
+        .dates div.event {
+            background-color: #4CAF50;
+            color: white;
+            border-radius: 5px;
+        }
+    </style>
 </head>
 <body>
-    <h1>Calendar</h1>
-    <!-- Insert your calendar or content here -->
+    <header>Calendar</header>
+    <div class="calendar-container">
+        <!-- Subjects Sidebar -->
+        <div class="subjects-sidebar">
+            <div class="subject">
+                <span class="subject-label" style="color: #7c4dff;">Maths</span>
+                <span class="subject-hours">8 hours</span>
+            </div>
+            <div class="subject">
+                <span class="subject-label" style="color: #ff4081;">English</span>
+                <span class="subject-hours">5 hours</span>
+            </div>
+            <div class="subject">
+                <span class="subject-label" style="color: #03a9f4;">Physics</span>
+                <span class="subject-hours">4 hours</span>
+            </div>
+            <!-- Add more subjects as needed -->
+        </div>
+
+        <!-- Calendar -->
+        <div class="calendar">
+            <div class="calendar-header">
+                <button onclick="prevMonth()">Prev</button>
+                <h2 id="monthYear">June 2024</h2>
+                <button onclick="nextMonth()">Next</button>
+            </div>
+            <div class="days">
+                <div>Mon</div>
+                <div>Tue</div>
+                <div>Wed</div>
+                <div>Thu</div>
+                <div>Fri</div>
+                <div>Sat</div>
+                <div>Sun</div>
+            </div>
+            <div class="dates" id="calendarDates">
+                <!-- Dates will be dynamically generated here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const calendarDates = document.getElementById("calendarDates");
+        const monthYear = document.getElementById("monthYear");
+
+        let currentMonth = 5; // June (months are 0-indexed)
+        let currentYear = 2024;
+
+        const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+        function generateCalendar() {
+            // Clear the existing dates
+            calendarDates.innerHTML = "";
+
+            // Get the first day and number of days in the current month
+            const firstDay = new Date(currentYear, currentMonth, 1).getDay();
+            const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+
+            // Set the header to the current month and year
+            monthYear.textContent = `${monthNames[currentMonth]} ${currentYear}`;
+
+            // Add empty cells for the days before the first day of the month
+            for (let i = 0; i < firstDay; i++) {
+                const emptyCell = document.createElement("div");
+                calendarDates.appendChild(emptyCell);
+            }
+
+            // Add cells for each day of the month
+            for (let day = 1; day <= daysInMonth; day++) {
+                const dateCell = document.createElement("div");
+                dateCell.textContent = day;
+
+                // Add events for specific dates (example: adding event on 1st of June)
+                if (day === 1) {
+                    dateCell.classList.add("event");
+                    dateCell.textContent += " - Maths";
+                }
+
+                calendarDates.appendChild(dateCell);
+            }
+        }
+
+        function prevMonth() {
+            currentMonth--;
+            if (currentMonth < 0) {
+                currentMonth = 11;
+                currentYear--;
+            }
+            generateCalendar();
+        }
+
+        function nextMonth() {
+            currentMonth++;
+            if (currentMonth > 11) {
+                currentMonth = 0;
+                currentYear++;
+            }
+            generateCalendar();
+        }
+
+        // Initial calendar generation
+        generateCalendar();
+    </script>
 </body>
 </html>

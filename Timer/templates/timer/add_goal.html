@@ -1,0 +1,7 @@
+<!-- Timer/templates/timer/goal.html -->
+<form method="post" action="{% url 'add_goal' %}">
+    {% csrf_token %}
+    <label for="goal">New Goal:</label>
+    <input type="text" id="goal" name="goal" placeholder="Enter your goal" required>
+    <input type="submit" value="Add Goal">
+</form>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Goal Setting</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        .goal-form {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .goal-form label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+        }
+        .goal-form input[type="text"] {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .goal-form input[type="submit"] {
+            background: #007BFF;
+            color: #fff;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .goal-form input[type="submit"]:hover {
+            background: #0056b3;
+        }
+        .goal-list {
+            margin-top: 20px;
+        }
+        .goal-item {
+            background: #fff;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .goal-item p {
+            margin: 0;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Set Clear Goals and Stay on Track</h1>
+
+        <!-- Goal Setting Form -->
+        <div class="goal-form">
+        <!-- add_goal.html -->
+        <form method="post" action="{% url 'add_goal' %}">
+            {% csrf_token %}
+            <input type="text" name="goal" placeholder="Enter your goal">
+            <button type="submit">Add Goal</button>
+        </form>
+
+
+        </div>
+
+        <!-- Existing Goals List -->
+        <div class="goal-list">
+            <h2>My Goals</h2>
+            {% if goals %}
+                {% for goal in goals %}
+                    <div class="goal-item">
+                        <p>{{ goal.name }}</p>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p>No goals set yet. Start by adding your first goal!</p>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>

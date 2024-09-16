@@ -6,6 +6,9 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from .models import Task  # Ensure models are imported correctly
 from datetime import date
+from django.contrib.auth.decorators import login_required
+from .models import Goal  # Ensure you have a Goal model for storing user goals
+
 
 # Index view to list all tasks
 def index(request):
@@ -74,12 +77,22 @@ def edit_task_view(request, task_id):
 
     return render(request, 'timer/edit_task.html', {'task': task})
 
-# View to delete a task
 def delete_task_view(request, task_id):
-    task = get_object_or_404(Task, id=task_id)
-
+    task = Task.objects.get(id=task_id)
     if request.method == 'POST':
         task.delete()
-        return redirect('task_list')  # Ensure 'task_list' is the correct URL name
+        return redirect('task_list')  # Redirect to a list of tasks or any other page
+    return render(request, 'timer\delete_task.html', {'task': task})
 
-    return render(request, 'timer/delete_task.html', {'task': task})
+def goal_view(request):
+    # existing code
+    goals = Goal.objects.all()  # Adjust according to your actual model and queryset
+    return render(request, 'goal.html', {'goals': goals})
+    
+def add_goal(request):
+    if request.method == 'POST':
+        goal_text = request.POST.get('goal')
+        if goal_text:
+            Goal.objects.create(text=goal_text)  # Adjust according to your actual model fields
+        return redirect('goal_view')
+    return redirect('goal_view')  # Or handle GET request appropriately

@@ -58,9 +58,8 @@ html {
 /* Hero Section with Parallax Effect */
 .hero {
     height: 100vh; /* Full viewport height */
+    background: url('C:\Users\ACCA\OneDrive\Desktop\Procrastinot\Timer\static\images\study.jpg') no-repeat center center fixed; /* Background image */
     background-size: cover; /* Ensures the image covers the entire section */
-    background-position: center; /* Keeps the image centered */
-    background-attachment: fixed; /* Adds a parallax effect */
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -96,6 +95,7 @@ html {
     position: relative;
     z-index: 2;
 }
+
 
 /* Button Styles */
 /* Button Styles */

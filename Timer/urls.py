@@ -12,8 +12,9 @@ urlpatterns = [
     path('calendar_view/', views.calendar_view, name='calendar_view'),
     path('timer/', views.timer_view, name='timer'),
     path('analytics/', views.analytics_view, name='analytics'),
-    path('edit_task/<int:task_id>/', views.edit_task_view, name='edit_task'),
-    path('delete_task/<int:task_id>/', views.delete_task_view, name='delete_task'),
-    
+    path('edit_task/', views.edit_task_view, name='edit_task'),
+    path('delete_task/', views.delete_task_view, name='delete_task'),
+    path('goal/', views.goal_view, name='goal'),
+    path('add_goal/', views.add_goal, name='add_goal'),
 ]   
 

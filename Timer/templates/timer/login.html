@@ -172,9 +172,8 @@
     <main>
         <div class="login-container">
             <h2>Welcome Back, Procrastinator!</h2>
-            <form method="post"action="/plan/">>
+            <form method="post" action="/plan/"> <!-- Ensure this action URL points to your login view -->
                 {% csrf_token %}
-                <input type="hidden" name="csrfmiddlewaretoken" value="token">
                 <p>
                     <label for="id_username">Username:</label>
                     <input type="text" name="username" autofocus autocapitalize="none" autocomplete="username" maxlength="150" required id="id_username">

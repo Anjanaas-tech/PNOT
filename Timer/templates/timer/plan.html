@@ -6,152 +6,183 @@
     <title>User Study Plan</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f9f9f9;
+            background-image: url('/static/images/plan.jpg');
+            background-size: cover;
+            background-position: center;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+         /* Apply black bold border to all text */
+         * {
+            -webkit-text-stroke: 1px black; /* Bold black border for Webkit browsers */
+            font-weight: bold; /* Make text bold */
+            text-shadow: 
+                -1px -1px 0 #000,  
+                 1px -1px 0 #000,
+                 -1px  1px 0 #000,
+                  1px  1px 0 #000; /* Black border for broader browser support */
         }
 
         .main-content {
-            width: 90%;
-            margin: auto;
-            padding: 20px;
+            width: 80%;
+            margin: 30px auto;
+            padding: 10px;
             max-width: 1200px;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0);
+            background: rgba(182, 72, 250, 0.26) /* Transparent white */
+            backdrop-filter: blur(50px); /* Glassmorphism effect */
+            text-align: center;
+            animation: floatIn 1s ease-in-out;
+        }
+
+        @keyframes floatIn {
+            0% {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
         }
 
         h1 {
-            text-align: center;
-            font-size: 36px;
-            color: #333;
-            margin-bottom: 20px;
+            font-size: 48px;
+            color: #ffeb3b; /* Bright color for header */
+            margin-bottom: 10px;
+            text-shadow: 4px 4px 10px rgba(0, 0, 0, 1);
+            animation: bounceIn 1.5s ease-out;
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+
+        h1:hover {
+            transform: scale(1.1);
+            color: #fff700; /* Lighter yellow on hover */
+        }
+
+        @keyframes bounceIn {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
         }
 
         .study-plan {
             display: flex;
-            justify-content: space-between;
-            align-items: start;
+            justify-content: center;
+            flex-wrap: wrap;
         }
 
+        /* Adjust the plan-column size */
         .plan-column {
-            width: 48%;
-            background-color: #fff;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            padding: 20px;
+            width: 60%; /* Reducing the width */
+            background-color: rgba(255, 255, 255, 0); /* Fully transparent */
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 1);
+            padding: 10px; /* Reduce padding to make the box smaller */
+            margin: 20px auto; /* Centered */
+            transition: transform 0.4s, box-shadow 0.4s;
+            animation: fadeInUp 1s ease;
         }
 
-        h2 {
-            font-size: 24px;
-            color: #555;
-            margin-bottom: 10px;
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .side-menu ul {
             list-style-type: none;
             padding: 0;
-        }
-
-        .side-menu ul li {
-            margin-bottom: 10px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* 3 columns */
+            grid-template-rows: repeat(2, 1fr); /* 2 rows */
+            grid-gap: 15px; /* Slightly smaller gap between items */
         }
 
         .side-menu ul li a {
             text-decoration: none;
-            font-size: 18px;
-            color: #333;
-            background-color: #f1f1f1;
-            padding: 10px 20px;
-            border-radius: 5px;
-            display: block;
+            font-size: 20px; /* Slightly smaller font */
+            color: #ffff;
+            background-color: #ffeb3b;
+            padding: 10px 20px; /* Reduced padding for a more compact feel */
+            border-radius: 10px; /* Slightly less rounded for a squarer look */
+            display: inline-block;
+            text-align: center;
+            transition: background-color 0.3s, transform 0.3s;
+            height: 60px; /* Set fixed height for more square-like appearance */
+            display: flex;
+            justify-content: center;
+            align-items: center; /* Center text vertically */
+            animation: fadeInUp 1.5s ease;
         }
 
         .side-menu ul li a:hover {
-            background-color: #ddd;
+            background-color: #ffd700;
+            transform: scale(1.05) rotate(-5deg);
         }
 
-        .task-list ul {
-            list-style-type: none;
-            padding: 0;
+        .footer-joke {
+            margin-top: 40px;
+            font-size: 20px;
+            color: #ffeb3b;
+            animation: fadeInUp 2s ease;
+            animation-delay: 1s;
         }
 
-        .task-list ul li {
-            background-color: #f1f1f1;
-            margin-bottom: 10px;
-            padding: 15px;
-            border-radius: 8px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        .footer-joke span {
+            font-size: 25px;
+            color: #ffd700;
+            animation: pulsate 2s infinite;
         }
 
-        .task-list ul li strong {
-            font-size: 18px;
-            color: #333;
-        }
-
-        .task-list ul li span {
-            margin-left: 10px;
-            font-size: 14px;
-            color: #777;
-        }
-
-        .task-list ul li a {
-            color: #007bff;
-            text-decoration: none;
-            margin-left: 15px;
-        }
-
-        .expected-hours {
-            margin-bottom: 20px;
-        }
-
-        .expected-hours input {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            margin-bottom: 10px;
-        }
-
-        .topics-list input {
-            margin-right: 10px;
-        }
-
-        /* Additional Styles for Features Section */
-        .feature-item {
-            text-align: center;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-
-        .feature-item h3 {
-            margin-top: 10px;
-            font-size: 1.5rem;
-        }
-
-        .feature-item p {
-            margin-top: 10px;
-            font-size: 1rem;
-            color: #777;
-        }
-
-        .fa {
-            font-size: 2rem;
-            color: #007bff;
+        @keyframes pulsate {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.2);
+            }
+            100% {
+                transform: scale(1);
+            }
         }
 
         /* Responsive Design */
-        @media (max-width: 768px) {
-            .study-plan {
-                flex-direction: column;
-            }
-
+        @media (max-width: 500px) {
             .plan-column {
                 width: 100%;
                 margin-bottom: 20px;
+            }
+
+            h1 {
+                font-size: 36px;
+            }
+
+            h2 {
+                font-size: 24px;
+            }
+
+            .side-menu ul {
+                grid-template-columns: repeat(2, 1fr); /* 2 columns for small screens */
+            }
+        }
+
+        @media (max-width: 500px) {
+            .side-menu ul {
+                grid-template-columns: 1fr; /* 1 column for extra small screens */
             }
         }
     </style>
@@ -159,7 +190,7 @@
 <body>
 
     <div class="main-content">
-        <h1>Study Plan</h1>
+        <h1>Your Study Plan Awaits! 🚀</h1>
 
         <!-- Links to App Features -->
         <div class="study-plan">
@@ -174,6 +205,10 @@
                     <li><a href="{% url 'edit_task' %}">Connected Apps</a></li>
                 </ul>
             </div>
+        </div>
+
+        <div class="footer-joke">
+            Remember: <span>Procrastination</span> is like a credit card. It’s fun until you get the bill! 💸
         </div>
     </div>
 

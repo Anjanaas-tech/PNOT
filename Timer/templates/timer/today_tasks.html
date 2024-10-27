@@ -1,73 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Task Management System</title>
+    <title>Student Task Management</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         body {
-            background: linear-gradient(to right, #f54ea2, #ff7676);
-            font-family: Arial, sans-serif;
-            color: #333;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #f4f4f4, #e3f2fd);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            transition: background-color 0.3s ease;
         }
 
         .container {
+            display: flex;
+            width: 100%;
             max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-
-        .header {
-            text-align: center;
-            padding: 50px;
-            color: #fff;
-            font-size: 3em;
-            font-weight: bold;
-            animation: fadeIn 1.5s ease-in-out;
-        }
-
-        .task-list {
-            background-color: #fff;
+            background: white;
             border-radius: 10px;
-            padding: 20px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        .task-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px;
-            border-bottom: 1px solid #eee;
-            transition: background 0.3s ease;
-        }
-
-        .task-item:hover {
-            background: rgba(0, 0, 0, 0.05);
-        }
-
-        .task-item h3 {
-            margin: 0;
-            font-size: 1.2em;
-        }
-
-        .task-actions {
-            display: flex;
-            gap: 10px;
-        }
-
-        button {
-            padding: 10px;
-            border: none;
-            border-radius: 5px;
-            background-color: #f54ea2;
-            color: #fff;
-            cursor: pointer;
-            transition: background 0.3s ease;
-        }
-
-        button:hover {
-            background-color: #ff7676;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            animation: fadeIn 0.5s ease;
         }
 
         @keyframes fadeIn {
@@ -78,51 +38,285 @@
                 opacity: 1;
             }
         }
+
+        .form-section,
+        .task-list-section {
+            flex: 1;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #0077b6;
+            margin-bottom: 20px;
+            font-size: 2.5em;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+        }
+
+        .task-form {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 20px;
+        }
+
+        .task-form input,
+        .task-form textarea,
+        .task-form select {
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            transition: border-color 0.3s ease;
+        }
+
+        .task-form input:focus,
+        .task-form textarea:focus,
+        .task-form select:focus {
+            border-color: #0077b6;
+            box-shadow: 0 0 5px rgba(0, 119, 182, 0.5);
+        }
+
+        .task-form button {
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #0077b6;
+            color: white;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background-color 0.3s ease, transform 0.2s;
+            margin-top: 10px;
+        }
+
+        .task-form button:hover {
+            background-color: #005f8c;
+            transform: translateY(-2px);
+        }
+
+        .task-list {
+            list-style: none;
+            padding: 0;
+            max-height: 400px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            margin-top: 20px;
+        }
+
+        .task-item {
+            display: flex;
+            flex-direction: column;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, transform 0.2s;
+        }
+
+        .task-item:hover {
+            background: rgba(0, 119, 182, 0.1);
+            transform: scale(1.02);
+        }
+
+        .task-item.completed {
+            text-decoration: line-through;
+            color: #aaa;
+        }
+
+        .task-item button {
+            border: none;
+            background: transparent;
+            color: #0077b6;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+            transition: color 0.3s ease;
+        }
+
+        .task-item button:hover {
+            color: #005f8c;
+        }
+
+        .task-details {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .task-title {
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+
+        .task-desc {
+            font-size: 0.9em;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        .priority-select {
+            width: 100%;
+        }
+
+        .search-bar {
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            transition: border-color 0.3s ease;
+        }
+
+        .search-bar:focus {
+            border-color: #0077b6;
+            box-shadow: 0 0 5px rgba(0, 119, 182, 0.5);
+        }
+
+        /* Priority Colors */
+        .Low {
+            background-color: #d1e7dd;
+        }
+
+        .Medium {
+            background-color: #ffeeba;
+        }
+
+        .High {
+            background-color: #f8d7da;
+        }
     </style>
-
-    <script>
-      document.addEventListener("DOMContentLoaded", function() {
-          const tasks = document.querySelectorAll('.task-item');
-          tasks.forEach(task => {
-              task.addEventListener('mouseenter', () => {
-                  task.style.backgroundColor = '#f4f4f4';
-                  task.style.transform = 'scale(1.02)';
-                  task.style.transition = 'transform 0.3s ease-in-out';
-              });
-  
-              task.addEventListener('mouseleave', () => {
-                  task.style.backgroundColor = '#fff';
-                  task.style.transform = 'scale(1)';
-              });
-          });
-      });
-  </script>
-  
 </head>
+
 <body>
-
-<div class="container">
-    <div class="header">Task Management System</div>
-
-    <div class="task-list">
-        <form method="POST">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit">Add Task</button>
-        </form>
-
-        <h2>All Tasks</h2>
-
-        <div class="task-item">
-            <h3>Complete a budget analysis</h3>
-            <div class="task-actions">
-                <button>Edit</button>
-                <button>Delete</button>
+    <div class="container">
+        <div class="form-section">
+            <h1>Task Manager</h1>
+            <input type="text" id="searchBar" class="search-bar" placeholder="Search tasks..." onkeyup="searchTasks()" />
+            <div class="task-form">
+                <input type="text" id="taskTitle" placeholder="Task Title" />
+                <textarea id="taskDesc" placeholder="Task Description" rows="3"></textarea>
+                <input type="date" id="dueDate" />
+                <select id="taskPriority" class="priority-select">
+                    <option value="Low">Low Priority</option>
+                    <option value="Medium">Medium Priority</option>
+                    <option value="High">High Priority</option>
+                </select>
+                <button id="addTaskBtn">Add Task</button>
             </div>
         </div>
-        <!-- Repeat for all tasks in the system -->
+        <div class="task-list-section">
+            <ul class="task-list" id="taskList"></ul>
+        </div>
     </div>
-</div>
 
+    <script>
+        const addTaskBtn = document.getElementById('addTaskBtn');
+        const taskTitleInput = document.getElementById('taskTitle');
+        const taskDescInput = document.getElementById('taskDesc');
+        const dueDateInput = document.getElementById('dueDate');
+        const taskPriorityInput = document.getElementById('taskPriority');
+        const taskList = document.getElementById('taskList');
+        const searchBar = document.getElementById('searchBar');
+
+        // Load tasks from local storage
+        window.onload = loadTasks;
+
+        addTaskBtn.addEventListener('click', () => {
+            const taskTitle = taskTitleInput.value;
+            const taskDesc = taskDescInput.value;
+            const dueDate = dueDateInput.value;
+            const taskPriority = taskPriorityInput.value;
+
+            if (taskTitle) {
+                const taskItem = createTaskItem(taskTitle, taskDesc, dueDate, taskPriority);
+                taskList.appendChild(taskItem);
+                saveTask(taskTitle, taskDesc, dueDate, taskPriority);
+                clearInputs();
+            }
+        });
+
+        function createTaskItem(taskTitle, taskDesc, dueDate, taskPriority) {
+            const taskItem = document.createElement('li');
+            taskItem.classList.add('task-item', taskPriority);
+            taskItem.innerHTML = `
+                <div class="task-details">
+                    <span class="task-title">${taskTitle} - ${taskPriority}</span>
+                    <span>${dueDate}</span>
+                </div>
+                <p class="task-desc">${taskDesc}</p>
+                <button onclick="markAsDone(this)">Mark as Done</button>
+                <button onclick="editTask(this)">Edit</button>
+                <button onclick="deleteTask(this)">Delete</button>
+            `;
+            return taskItem;
+        }
+
+        function saveTask(taskTitle, taskDesc, dueDate, taskPriority) {
+            let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+            tasks.push({ taskTitle, taskDesc, dueDate, taskPriority, completed: false });
+            localStorage.setItem('tasks', JSON.stringify(tasks));
+        }
+
+        function loadTasks() {
+            let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+            tasks.forEach(task => {
+                const taskItem = createTaskItem(task.taskTitle, task.taskDesc, task.dueDate, task.taskPriority);
+                if (task.completed) {
+                    taskItem.classList.add('completed');
+                }
+                taskList.appendChild(taskItem);
+            });
+        }
+
+        function clearInputs() {
+            taskTitleInput.value = '';
+            taskDescInput.value = '';
+            dueDateInput.value = '';
+            taskPriorityInput.value = 'Low';
+        }
+
+        function markAsDone(button) {
+            const taskItem = button.closest('.task-item');
+            taskItem.classList.toggle('completed');
+            button.innerHTML = taskItem.classList.contains('completed') ? 'Undo' : 'Mark as Done';
+            updateTaskStatus(taskItem);
+        }
+
+        function updateTaskStatus(taskItem) {
+            let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+            const index = Array.from(taskList.children).indexOf(taskItem);
+            tasks[index].completed = taskItem.classList.contains('completed');
+            localStorage.setItem('tasks', JSON.stringify(tasks));
+        }
+
+        function deleteTask(button) {
+            const taskItem = button.closest('.task-item');
+            taskItem.remove();
+            updateTaskList();
+        }
+
+        function editTask(button) {
+            const taskItem = button.closest('.task-item');
+            taskTitleInput.value = taskItem.querySelector('.task-title').innerText.split(' - ')[0];
+            taskDescInput.value = taskItem.querySelector('.task-desc').innerText;
+            dueDateInput.value = taskItem.querySelector('.task-details span:nth-child(2)').innerText;
+            taskPriorityInput.value = taskItem.classList[1];
+            deleteTask(button);
+        }
+
+        function searchTasks() {
+            const filter = searchBar.value.toLowerCase();
+            const taskItems = taskList.getElementsByTagName('li');
+            for (let i = 0; i < taskItems.length; i++) {
+                const taskTitle = taskItems[i].getElementsByClassName('task-title')[0].innerText;
+                taskItems[i].style.display = taskTitle.toLowerCase().includes(filter) ? '' : 'none';
+            }
+        }
+
+        function updateTaskList() {
+            let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+            tasks = tasks.filter(task => !task.completed);
+            localStorage.setItem('tasks', JSON.stringify(tasks));
+        }
+    </script>
 </body>
+
 </html>

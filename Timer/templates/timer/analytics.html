@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,6 +16,16 @@
             font-family: 'Arial', sans-serif;
             background-color: #f5f6fa;
             padding: 20px;
+            animation: fadeIn 1s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
         }
 
         h1 {
@@ -24,30 +33,46 @@
             font-size: 2.5rem;
             color: #2f3542;
             margin-bottom: 30px;
+            text-shadow: 1px 1px 2px #ccc;
         }
 
-        .analytics-container {
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 20px;
-        }
-
-        .chart-box {
-            width: 45%;
+        .main-box {
+            width: 100%;
+            max-width: 1500px;
+            margin: 0 auto;
             background-color: white;
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+            display: flex;
+            gap: 20px;
         }
 
-        .stats-box {
-            width: 45%;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        .main-box:hover {
+            transform: scale(1.02);
+        }
+
+        .left-side, .right-side {
+            width: 50%;
+        }
+
+        .motivational-quote {
+            text-align: center;
+            font-size: 1.2rem;
+            color: #1e90ff;
+            margin: 20px 0;
+            font-style: italic;
+        }
+
+        .dropdown {
+            margin-bottom: 20px;
+            padding: 5px;
+            font-size: 1rem;
+            background-color: #dfe6e9;
+            border: 1px solid #b2bec3;
+            border-radius: 5px;
+            cursor: pointer;
         }
 
         .progress-tracker {
@@ -63,6 +88,8 @@
             width: 100%;
             overflow: hidden;
             margin-bottom: 10px;
+            position: relative;
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
         }
 
         .progress {
@@ -70,6 +97,7 @@
             height: 100%;
             border-radius: 5px;
             width: 0;
+            transition: width 1s ease-in-out;
         }
 
         .label {
@@ -78,25 +106,34 @@
             color: #57606f;
         }
 
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .chart-box, .stats-box {
-                width: 100%;
-            }
+        canvas {
+            margin: 20px 0;
         }
     </style>
 </head>
 
 <body>
     <h1>Analytics</h1>
-    <div class="analytics-container">
-        <!-- Time Usage Chart -->
-        <div class="chart-box">
+
+    <div class="motivational-quote">"Success is the sum of small efforts, repeated day in and day out."</div>
+
+    <div class="dropdown">
+        <label for="time-period">Select Time Period: </label>
+        <select id="time-period" name="time-period">
+            <option value="daily">Daily</option>
+            <option value="weekly">Weekly</option>
+            <option value="monthly">Monthly</option>
+        </select>
+    </div>
+
+    <div class="main-box">
+        <!-- Left side: Time Usage Chart -->
+        <div class="left-side">
             <canvas id="timeChart"></canvas>
         </div>
 
-        <!-- Task Completion Progress -->
-        <div class="stats-box">
+        <!-- Right side: Task Completion Progress and Productivity Trends -->
+        <div class="right-side">
             <h2>Task Completion Progress</h2>
             <div class="progress-tracker">
                 <span>Pomodoro Sessions</span>
@@ -121,11 +158,13 @@
             <div class="progress-bar">
                 <div class="progress" id="tasks-bar"></div>
             </div>
+
+            <h2>Productivity Trends</h2>
+            <canvas id="trendChart"></canvas>
         </div>
     </div>
 
     <script>
-        // Chart for Time Usage
         const ctx = document.getElementById('timeChart').getContext('2d');
         const timeChart = new Chart(ctx, {
             type: 'doughnut',
@@ -133,7 +172,7 @@
                 labels: ['Focus Time', 'Break Time', 'Idle Time'],
                 datasets: [{
                     label: 'Time Usage',
-                    data: [60, 25, 15], // Example data: Focus = 60%, Break = 25%, Idle = 15%
+                    data: [60, 25, 15],
                     backgroundColor: ['#1e90ff', '#ff6348', '#a4b0be'],
                     borderWidth: 1
                 }]
@@ -148,10 +187,36 @@
             }
         });
 
-        // Progress Data for Task Completion (example percentages)
-        const pomodoroProgress = 75; // 75% pomodoros completed
-        const breakProgress = 60; // 60% breaks taken
-        const tasksProgress = 90; // 90% total tasks completed
+        const trendCtx = document.getElementById('trendChart').getContext('2d');
+        const trendChart = new Chart(trendCtx, {
+            type: 'line',
+            data: {
+                labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+                datasets: [{
+                    label: 'Completed Tasks',
+                    data: [5, 8, 6, 9, 7, 10, 12],
+                    borderColor: '#1e90ff',
+                    fill: false,
+                    tension: 0.1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            label: function (tooltipItem) {
+                                return tooltipItem.label + ': ' + tooltipItem.formattedValue + ' tasks';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        const pomodoroProgress = 75;
+        const breakProgress = 60;
+        const tasksProgress = 90;
 
         document.getElementById('pomodoro-bar').style.width = pomodoroProgress + '%';
         document.getElementById('break-bar').style.width = breakProgress + '%';
@@ -160,7 +225,11 @@
         document.getElementById('pomodoro-completion').textContent = pomodoroProgress + '%';
         document.getElementById('break-completion').textContent = breakProgress + '%';
         document.getElementById('tasks-completion').textContent = tasksProgress + '%';
+
+        document.getElementById('time-period').addEventListener('change', function () {
+            const period = this.value;
+            alert('Displaying ' + period + ' analytics!');
+        });
     </script>
 </body>
-
 </html>

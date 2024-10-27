@@ -6,17 +6,54 @@
     <title>Your Goals | Procrastinot</title>
     <style>
         body {
-            font-family: 'Arial', sans-serif; /* Changed to a more professional font */
-            background: linear-gradient(135deg, #8fd3f4 0%, #84fab0 100%);
+            font-family: 'Arial', sans-serif;
+            background-image: url('/static/images/goal.jpg');
+            background-size: cover; /* Ensures the image covers the full page */
+            background-attachment: fixed; /* Keeps the background fixed in place */
+            background-position: center; /* Centers the background */
+            background-repeat: no-repeat; /* Prevents the background from repeating */
             color: #333;
-            text-align: center;
             padding: 20px;
         }
+        
+
         h1 {
-            color: #ff6347;
             font-size: 3rem;
-            text-shadow: 2px 2px #ffde7d;
+            text-shadow: 2px 2px #000000;
+            font-weight: bold; /* Makes the text bold */
+            text-align: center; /* Centers the text */
+            color: white; /* Changes text color to white */
         }
+        
+
+        .main-box {
+            background-color: rgba(255, 255, 255, 0.6);
+            padding: 20px;
+            border-radius: 15px;
+            max-width: 1000px;
+            margin: 0 auto;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 20px;
+        }
+
+        .left-section, .right-section {
+            width: 48%;
+        }
+
+        form, .progress-container, .motivation {
+            background: rgba(182, 72, 250, 0); /* Transparent white */
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px auto;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.0);
+        }
+
         form input[type="text"], form textarea, form input[type="number"] {
             width: 80%;
             padding: 10px;
@@ -24,170 +61,132 @@
             border-radius: 10px;
             border: 2px solid #ff6347;
             font-size: 1.2rem;
-            transition: 0.3s ease;
         }
-        form input[type="text"]:focus, form textarea:focus, form input[type="number"]:focus {
-            border-color: #34ace0;
-            box-shadow: 0 0 10px #34ace0;
-        }
+
         form button {
             background-color: #ff6347;
             color: white;
-            padding: 10px 20px;
+            padding: 5px 10px;
             border: none;
-            border-radius: 20px;
+            border-radius: 10px;
             font-size: 1.2rem;
             cursor: pointer;
-            transition: background-color 0.3s; /* Changed to background color transition */
         }
-        form button:hover {
-            background-color: #e74c3c; /* Darker shade on hover */
-        }
+
         ul {
-            list-style: none;
-            padding: 0;
+            background-color: rgba(255, 255, 255, 0.5);
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
+
         li {
-            background-color: #fff;
+            background-color: rgba(255, 255, 255, 0.8);
             margin: 20px auto;
             padding: 15px;
-            border-radius: 15px;
+            border-radius: 10px;
             width: 80%;
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            font-size: 1.2rem;
-            position: relative;
-            animation: fadeIn 1s ease-in-out;
         }
-        @keyframes fadeIn {
-            0% { opacity: 0; transform: translateY(-20px); }
-            100% { opacity: 1; transform: translateY(0); }
+
+        .progress-bar {
+            width: 100%;
+            background-color: #ddd;
+            border-radius: 20px;
         }
-        li:before {
-            content: "🎯";
-            font-size: 2rem;
-            position: absolute;
-            left: -40px;
-            top: 15px;
+
+        .progress-bar div {
+            height: 25px;
+            background-color: #34ace0;
+            border-radius: 20px;
         }
-        .completed {
-            text-decoration: line-through;
-            color: #6ab04c;
-        }
+
         button.complete-btn, button.delete-btn {
             background-color: #34ace0;
             color: white;
             padding: 5px 10px;
             border: none;
             border-radius: 10px;
+            margin: 4px;
             cursor: pointer;
-            margin: 5px;
-            transition: background-color 0.3s; /* Changed to background color transition */
         }
+
         button.complete-btn:hover, button.delete-btn:hover {
-            background-color: #2a82b5; /* Darker shade on hover */
+            background: rgba(182, 72, 250, 0.26) /* Transparent white */
         }
-        .empty-list {
-            font-size: 1.5rem;
-            color: #ff6347;
-            animation: bounce 2s infinite;
-        }
-        @keyframes bounce {
-            0%, 100% {
-                transform: translateY(0);
-            }
-            50% {
-                transform: translateY(-10px);
-            }
-        }
-        .progress-bar {
-            width: 80%;
-            background-color: #ddd;
-            margin: 20px auto;
-            border-radius: 20px;
-        }
-        .progress-bar div {
-            height: 25px;
-            background-color: #34ace0;
-            border-radius: 20px;
-            animation: progressGrow 2s ease-out;
-        }
-        @keyframes progressGrow {
-            0% { width: 0%; }
-            100% { width: {{ progress_percentage }}%; }
-        }
+
         .motivation {
-            background-color: #ffeb3b;
-            padding: 15px;
-            margin-top: 20px;
-            border-radius: 10px;
             font-size: 1.2rem;
-            animation: fadeInUp 1.5s ease-in-out;
-        }
-        .motivation p {
-            margin: 0;
-            font-style: italic;
-        }
-        @keyframes fadeInUp {
-            0% { opacity: 0; transform: translateY(20px); }
-            100% { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
 <body>
     <h1>Your Epic Goals</h1>
     
-    <h2>Set Your Weekly Study Goal 🎯</h2>
-    <form method="POST" action="{% url 'set_weekly_goal' %}">
-        {% csrf_token %}
-        <input type="number" name="study_hours" placeholder="How many hours do you plan to study this week?" required>
-        <button type="submit">Set Weekly Goal 🕒</button>
-    </form>
-
-    <h2>Your Progress</h2>
-    <div class="progress-bar">
-        <div style="width: {{ progress_percentage }}%;"></div>
-    </div>
-    <p>{{ progress_percentage }}% of your weekly goal completed!</p>
-    
-    <h2>Add a New Goal 📝</h2>
-    <form method="POST" action="{% url 'add_goal' %}">
-        {% csrf_token %}
-        <input type="text" name="title" placeholder="What's the plan, champ?" required>
-        <textarea name="description" placeholder="Describe your awesomeness in detail..." required></textarea>
-        <button type="submit">Add Goal 🎉</button>
-    </form>
-
-    <h2>Your Goals</h2>
-    <ul>
-        {% for goal in goals %}
-            <li class="{% if goal.completed %}completed{% endif %}">
-                <strong>{{ goal.title }}</strong><br>
-                {{ goal.description }}<br>
-                <em>Status: 
-                    {% if goal.completed %}
-                        Completed 🏆
-                    {% else %}
-                        Pending ⏳
-                    {% endif %}
-                </em>
-                <form method="POST" action="{% url 'complete_goal' goal.id %}">
+    <div class="main-box">
+        <div class="container">
+            <!-- Left Section -->
+            <div class="left-section">
+                <h2>Set Your Weekly Study Goal 🎯</h2>
+                <form method="POST" action="{% url 'set_weekly_goal' %}">
                     {% csrf_token %}
-                    <button type="submit" class="complete-btn">Mark as Completed ✅</button>
+                    <input type="number" name="study_hours" placeholder="How many hours do you plan to study this week?" required>
+                    <button type="submit">Set Weekly Goal 🕒</button>
                 </form>
-                <form method="POST" action="{% url 'delete_goal' goal.id %}">
-                    {% csrf_token %}
-                    <button type="submit" class="delete-btn">Delete Goal 🗑️</button>
-                </form>
-            </li>
-        {% empty %}
-            <li class="empty-list">No goals added yet... Time to get moving! 🚀</li>
-        {% endfor %}
-    </ul>
 
-    <div class="motivation">
-        <h2>Need Some Motivation? 💪</h2>
-        <p>"The road to success is dotted with many tempting parking spaces!"</p>
-        <p>"Procrastination is like a credit card: it's a lot of fun until you get the bill."</p>
+                <h2>Your Progress</h2>
+                <div class="progress-container">
+                    <div class="progress-bar">
+                        <div style="width: {{ progress_percentage }}%;"></div>
+                    </div>
+                    <p>{{ progress_percentage }}% of your weekly goal completed!</p>
+                </div>
+
+                <h2>Add a New Goal 📝</h2>
+                <form method="POST" action="{% url 'add_goal' %}">
+                    {% csrf_token %}
+                    <input type="text" name="title" placeholder="What's the plan, champ?" required>
+                    <textarea name="description" placeholder="Describe your awesomeness in detail..." required></textarea>
+                    <button type="submit">Add Goal 🎉</button>
+                </form>
+
+                <div class="motivation">
+                    <h2>Need Some Motivation? 💪</h2>
+                    <p>"The road to success is dotted with many tempting parking spaces!"</p>
+                    <p>"Procrastination is like a credit card: it's a lot of fun until you get the bill."</p>
+                </div>
+            </div>
+
+            <!-- Right Section -->
+            <div class="right-section">
+                <h2>Your Goals</h2>
+                <ul>
+                    {% for goal in goals %}
+                        <li class="{% if goal.completed %}completed{% endif %}">
+                            <strong>{{ goal.title }}</strong><br>
+                            {{ goal.description }}<br>
+                            <em>Status: 
+                                {% if goal.completed %}
+                                    Completed 🏆
+                                {% else %}
+                                    Pending ⏳
+                                {% endif %}
+                            </em>
+                            <form method="POST" action="{% url 'complete_goal' goal.id %}">
+                                {% csrf_token %}
+                                <button type="submit" class="complete-btn">Mark as Completed ✅</button>
+                            </form>
+                            <form method="POST" action="{% url 'delete_goal' goal.id %}">
+                                {% csrf_token %}
+                                <button type="submit" class="delete-btn">Delete Goal 🗑️</button>
+                            </form>
+                        </li>
+                    {% empty %}
+                        <li class="empty-list">No goals added yet... Time to get moving! 🚀</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
     </div>
 </body>
 </html>

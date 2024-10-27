@@ -3,13 +3,13 @@ from django.contrib.auth import login
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.models import User
 from django.contrib import messages
-from .models import Task, Goal  # Ensure models are imported correctly
-from .forms import TaskForm
-from datetime import date
+from django.http import JsonResponse  # Corrected import for JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
-from .models import Note
-from .forms import NoteForm
+from datetime import date
 
+from .models import Task, Goal, Note  # Ensure correct models are imported
+from .forms import TaskForm, NoteForm  # Import the necessary forms
 
 # Index view to list all tasks
 def index(request):
@@ -44,7 +44,7 @@ def register(request):
 # View for displaying user tasks
 @login_required
 def user_plan_view(request):
-    tasks = Task.objects.all()  # or the appropriate queryset
+    tasks = Task.objects.filter(user=request.user)  # Show tasks only for the logged-in user
     return render(request, 'timer/plan.html', {'tasks': tasks})
 
 # View for displaying today's tasks
@@ -64,7 +64,6 @@ def timer_view(request):
 # Analytics view
 def analytics_view(request):
     return render(request, 'timer/analytics.html')
-
 
 # View to delete a task
 @login_required
@@ -148,6 +147,7 @@ def complete_task(request, task_id):
     messages.success(request, "Task marked as completed!")
     return redirect('user_plan')  # Ensure this matches the correct URL name
 
+# Notes-related views
 
 @login_required
 def add_note_view(request):
@@ -167,3 +167,16 @@ def add_note_view(request):
 def notes_view(request):
     notes = Note.objects.filter(user=request.user)  # Get notes for the logged-in user
     return render(request, 'Timer/notes.html', {'notes': notes})
+
+# View to delete a note using AJAX
+@csrf_exempt
+@login_required
+def delete_note(request, note_id):
+    if request.method == 'DELETE':
+        try:
+            note = Note.objects.get(id=note_id, user=request.user)  # Ensure the note belongs to the logged-in user
+            note.delete()
+            return JsonResponse({'success': True})
+        except Note.DoesNotExist:
+            return JsonResponse({'success': False, 'error': 'Note does not exist'}, status=404)
+    return JsonResponse({'success': False, 'error': 'Invalid request method'}, status=400)

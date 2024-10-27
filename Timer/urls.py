@@ -22,4 +22,5 @@ urlpatterns = [
     path('set-weekly-goal/', views.set_weekly_goal, name='set_weekly_goal'),
     path('notes/', views.notes_view, name='notes'),
     path('notes/add/', views.add_note_view, name='add_note'),
+    path('delete_note/<int:note_id>/', views.delete_note, name='delete_note'),
 ]

@@ -10,6 +10,10 @@
         body {
             font-family: 'Arial', sans-serif;
             background: linear-gradient(135deg, #f4f4f4, #e3f2fd);
+            background-image: url('/static/images/todo.jpg');
+            background-size: cover; /* Ensure the background image covers the whole page */
+            background-position: center; /* Center the background image */
+            background-repeat: no-repeat; /* Do not repeat the image */
             margin: 0;
             padding: 0;
             display: flex;
@@ -18,18 +22,18 @@
             height: 100vh;
             transition: background-color 0.3s ease;
         }
-
+    
         .container {
             display: flex;
             width: 100%;
-            max-width: 1200px;
-            background: white;
+            max-width: 1000px;
+            background: rgba(0, 0, 0, 0.50); /* Transparent black */
             border-radius: 10px;
             box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
             overflow: hidden;
             animation: fadeIn 0.5s ease;
         }
-
+    
         @keyframes fadeIn {
             from {
                 opacity: 0;
@@ -38,13 +42,13 @@
                 opacity: 1;
             }
         }
-
+    
         .form-section,
         .task-list-section {
             flex: 1;
             padding: 20px;
         }
-
+    
         h1 {
             text-align: center;
             color: #0077b6;
@@ -52,13 +56,13 @@
             font-size: 2.5em;
             text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
         }
-
+    
         .task-form {
             display: flex;
             flex-direction: column;
             margin-bottom: 20px;
         }
-
+    
         .task-form input,
         .task-form textarea,
         .task-form select {
@@ -68,31 +72,31 @@
             border-radius: 5px;
             transition: border-color 0.3s ease;
         }
-
+    
         .task-form input:focus,
         .task-form textarea:focus,
         .task-form select:focus {
             border-color: #0077b6;
             box-shadow: 0 0 5px rgba(0, 119, 182, 0.5);
         }
-
+    
         .task-form button {
             padding: 10px;
             border: none;
             border-radius: 5px;
             background-color: #0077b6;
-            color: white;
+            color: black;
             cursor: pointer;
             font-size: 1em;
             transition: background-color 0.3s ease, transform 0.2s;
             margin-top: 10px;
         }
-
+    
         .task-form button:hover {
             background-color: #005f8c;
             transform: translateY(-2px);
         }
-
+    
         .task-list {
             list-style: none;
             padding: 0;
@@ -102,61 +106,61 @@
             flex-direction: column;
             margin-top: 20px;
         }
-
+    
         .task-item {
             display: flex;
             flex-direction: column;
-            padding: 15px;
+            padding: 20px;
             margin: 10px 0;
             border-radius: 5px;
             transition: background-color 0.3s ease, transform 0.2s;
         }
-
+    
         .task-item:hover {
             background: rgba(0, 119, 182, 0.1);
             transform: scale(1.02);
         }
-
+    
         .task-item.completed {
             text-decoration: line-through;
             color: #aaa;
         }
-
+    
         .task-item button {
             border: none;
             background: transparent;
             color: #0077b6;
             cursor: pointer;
-            font-size: 16px;
-            margin-top: 10px;
+            font-size: 20px;
+            margin-top: 5px;
             transition: color 0.3s ease;
         }
-
+    
         .task-item button:hover {
             color: #005f8c;
         }
-
+    
         .task-details {
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
-
+    
         .task-title {
             font-weight: bold;
             font-size: 1.1em;
         }
-
+    
         .task-desc {
             font-size: 0.9em;
             color: #666;
-            margin-top: 5px;
+            margin-top: 4px;
         }
-
+    
         .priority-select {
             width: 100%;
         }
-
+    
         .search-bar {
             margin-bottom: 20px;
             padding: 10px;
@@ -164,25 +168,26 @@
             border-radius: 5px;
             transition: border-color 0.3s ease;
         }
-
+    
         .search-bar:focus {
             border-color: #0077b6;
             box-shadow: 0 0 5px rgba(0, 119, 182, 0.5);
         }
-
+    
         /* Priority Colors */
         .Low {
             background-color: #d1e7dd;
         }
-
+    
         .Medium {
             background-color: #ffeeba;
         }
-
+    
         .High {
             background-color: #f8d7da;
         }
     </style>
+    
 </head>
 
 <body>

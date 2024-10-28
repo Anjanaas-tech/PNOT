@@ -2,7 +2,6 @@
 <html lang="en">
 {% load static %}
 <head>
-    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Procrastinot - Your Virtual Study Planner</title>
@@ -45,10 +44,7 @@
         }
 
     </style>
-    
-    
 </head>
-
 
 <body>
 
@@ -57,9 +53,9 @@
         <nav class="navbar">
             <a class="navbar-brand" href="#">ProcrastiNOT</a>
             <div class="navbar-nav">
-                <a class="nav-link" href="#">Home</a>
-                <a class="nav-link" href="#">Features</a>
-                <a class="nav-link" href="#">About</a>
+                <a class="nav-link" href="#hero">Home</a>
+                <a class="nav-link" href="#features">Features</a>
+                <a class="nav-link" href="#about">About</a>
                 <a class="nav-link btn btn-login" href="{% url 'login' %}">Login</a>
                 <a class="nav-link btn btn-register" href="{% url 'register' %}" style="margin-right: 2cm;">Register</a>
             </div>
@@ -67,13 +63,13 @@
     </header>
 
     <!-- Hero Section -->
-    <section class="hero">
+    <section class="hero" id="hero">
         <h1>Welcome to ProcrastiNOT</h1>
         <p>Your Ultimate Study Planner to Boost Productivity. ProcrastiNOT offers a range of features designed to help you stay focused and manage your study time effectively. With tools like task management, a Pomodoro timer, and detailed progress tracking, you can easily organize your study sessions and achieve your goals with confidence.</p>
     </section>  
     
     <!-- Features Section -->
-    <section class="features">
+    <section class="features" id="features">
         <h2>Features</h2>
         <div class="row">
             <div class="feature-item">
@@ -99,7 +95,7 @@
             <div class="feature-item">
                 <i class="fa fa-sticky-note icon"></i>
                 <h3>NoteHub</h3>
-                <p>capturing and organizing notes across various subjects. Enhance your learning experience</p>
+                <p>Capturing and organizing notes across various subjects. Enhance your learning experience.</p>
             </div>
             <div class="feature-item">
                 <i class="fa fa-calendar-alt"></i>
@@ -110,7 +106,7 @@
     </section>
 
     <!-- About Section -->
-    <section class="about">
+    <section class="about" id="about">
         <div class="container">
             <h2>About Procrastinot</h2>
             <p>Procrastinot is an all-in-one productivity tool designed to enhance your study routine. It features comprehensive task management, a customizable Pomodoro timer, and robust progress tracking to help you stay organized and motivated. Whether you're setting goals, tracking your study time, or integrating with other apps, Procrastinot provides everything you need to optimize your productivity and achieve your academic goals efficiently.</p>

@@ -172,7 +172,7 @@
     <main>
         <div class="login-container">
             <h2>Welcome Back, Procrastinator!</h2>
-            <form method="post" action="/plan/"> <!-- Ensure this action URL points to your login view -->
+            <form method="post" action="{% url 'login' %}?next=/plan/">
                 {% csrf_token %}
                 <p>
                     <label for="id_username">Username:</label>

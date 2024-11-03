@@ -1,20 +1,16 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth import login
+from django.contrib.auth import login, authenticate
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.models import User
 from django.contrib import messages
-from django.http import JsonResponse  # Corrected import for JsonResponse
+from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
+from django.views import View  
+from django.contrib.auth.mixins import LoginRequiredMixin  
 from datetime import date
-
-from .models import Task, Goal, Note  # Ensure correct models are imported
-from .forms import TaskForm, NoteForm  # Import the necessary forms
-
-# Index view to list all tasks
-def index(request):
-    tasks = Task.objects.all()
-    return render(request, 'timer/index.html', {'tasks': tasks})
+from .models import Task, Goal, Note
+from .forms import NoteForm
 
 # Custom login view with a specific template path
 class CustomLoginView(LoginView):
@@ -33,7 +29,7 @@ def register(request):
                 user = User.objects.create_user(username=username, password=password, email=email)
                 user.save()
                 messages.success(request, "Account created successfully!")
-                return redirect('login')  # Ensure 'login' is the correct URL name
+                return redirect('login')  # Ensure 'login' matches the URL name for the login view
             else:
                 messages.error(request, "Username already exists")
         else:
@@ -41,9 +37,14 @@ def register(request):
 
     return render(request, 'timer/registration/register.html')
 
+# Index view to list all tasks
+def index(request):
+    tasks = Task.objects.all()
+    return render(request, 'timer/index.html', {'tasks': tasks})
+
 # View for displaying user tasks
 @login_required
-def user_plan_view(request):
+def user_plan(request):
     tasks = Task.objects.filter(user=request.user)  # Show tasks only for the logged-in user
     return render(request, 'timer/plan.html', {'tasks': tasks})
 
@@ -59,11 +60,11 @@ def calendar_view(request):
 
 # Timer view
 def timer_view(request):
-    return render(request, 'timer/timer_view.html')
+    return render(request, 'timer/timer.html')
 
-# Analytics view
-def analytics_view(request):
-    return render(request, 'timer/analytics.html')
+# Schedule view
+def schedule_view(request):
+    return render(request, 'timer/schedule.html')
 
 # View to delete a task
 @login_required
@@ -82,7 +83,7 @@ def add_goal(request):
         title = request.POST.get('title')
         description = request.POST.get('description')
         if title and description:
-            Goal.objects.create(user=request.user, title=title, description=description)  # Tie goal to user
+            Goal.objects.create(user=request.user, title=title, description=description)
             messages.success(request, 'Goal added successfully!')
             return redirect('goals')  # Ensure this matches the correct URL name
     return render(request, 'timer/goals.html')
@@ -93,33 +94,31 @@ def complete_goal(request, goal_id):
     goal = get_object_or_404(Goal, id=goal_id)
     goal.completed = True
     goal.save()
-    messages.success(request, "Goal marked as completed!")  # Add success message
-    return redirect('goals')  # Ensure this matches your urls.py
+    messages.success(request, "Goal marked as completed!")
+    return redirect('goals')
 
 # Delete a goal
 @login_required
 def delete_goal(request, id):
-    goal = get_object_or_404(Goal, id=id)  # This will return a 404 if the goal does not exist
+    goal = get_object_or_404(Goal, id=id)
     if request.method == "POST":
         goal.delete()
-        messages.success(request, "Goal deleted successfully!")  # Add success message
-        return redirect('goals')  # Redirect after deletion
+        messages.success(request, "Goal deleted successfully!")
+        return redirect('goals')
     return render(request, 'timer/confirm_delete.html', {'goal': goal})
 
-# View goals
+# View goals with progress calculation
 @login_required
 def goal_view(request):
-    goals = Goal.objects.filter(user=request.user)  # Show only user's goals
-    progress_percentage = calculate_progress(goals)  # Helper to calculate progress
+    goals = Goal.objects.filter(user=request.user)
+    progress_percentage = calculate_progress(goals)
     return render(request, 'timer/goals.html', {'goals': goals, 'progress_percentage': progress_percentage})
 
 # Helper function to calculate progress
 def calculate_progress(goals):
     total_goals = goals.count()
     completed_goals = goals.filter(completed=True).count()
-    if total_goals > 0:
-        return (completed_goals / total_goals) * 100
-    return 0
+    return (completed_goals / total_goals) * 100 if total_goals > 0 else 0
 
 # Set a weekly goal
 @login_required
@@ -142,31 +141,30 @@ def save_weekly_goal(user, goal):
 @login_required
 def complete_task(request, task_id):
     task = get_object_or_404(Task, id=task_id)
-    task.is_completed = True  # Assuming 'is_completed' is a field in your Task model
+    task.completed = True
     task.save()
     messages.success(request, "Task marked as completed!")
-    return redirect('user_plan')  # Ensure this matches the correct URL name
+    return redirect('user_plan')
 
 # Notes-related views
-
 @login_required
 def add_note_view(request):
     if request.method == 'POST':
         form = NoteForm(request.POST)
         if form.is_valid():
             note = form.save(commit=False)
-            note.user = request.user  # Assign the logged-in user to the note
+            note.user = request.user
             note.save()
-            return redirect('notes')  # Redirect to the list of notes
+            messages.success(request, 'Note added successfully!')
+            return redirect('notes')
     else:
-        form = NoteForm()  # Create a new form instance for GET requests
-
-    return render(request, 'Timer/add_note.html', {'form': form})
+        form = NoteForm()
+    return render(request, 'timer/add_note.html', {'form': form})
 
 @login_required
 def notes_view(request):
-    notes = Note.objects.filter(user=request.user)  # Get notes for the logged-in user
-    return render(request, 'Timer/notes.html', {'notes': notes})
+    notes = Note.objects.filter(user=request.user)
+    return render(request, 'timer/notes.html', {'notes': notes})
 
 # View to delete a note using AJAX
 @csrf_exempt
@@ -174,7 +172,7 @@ def notes_view(request):
 def delete_note(request, note_id):
     if request.method == 'DELETE':
         try:
-            note = Note.objects.get(id=note_id, user=request.user)  # Ensure the note belongs to the logged-in user
+            note = Note.objects.get(id=note_id, user=request.user)
             note.delete()
             return JsonResponse({'success': True})
         except Note.DoesNotExist:

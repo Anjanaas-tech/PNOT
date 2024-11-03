@@ -2,18 +2,19 @@ from django.urls import path
 from django.contrib.auth import views as auth_views
 from . import views
 from .views import add_note_view, notes_view
+from .views import schedule_view
 
 
 urlpatterns = [
     path('', views.index, name='index'),
-    path('login/', auth_views.LoginView.as_view(template_name='timer/login.html'), name='login'),
+    path('login/', auth_views.LoginView.as_view(template_name='timer/registration/login.html'), name='login'),
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
     path('register/', views.register, name='register'),
-    path('plan/', views.user_plan_view, name='user_plan'),
+    path('plan/', views.user_plan, name='user_plan'),
     path('today_tasks/', views.today_tasks_view, name='today_tasks'),
     path('calendar_view/', views.calendar_view, name='calendar_view'),
     path('timer/', views.timer_view, name='timer'),
-    path('analytics/', views.analytics_view, name='analytics'),
+    path('schedule/', schedule_view, name='schedule'),
     path('delete_task/<int:task_id>/', views.delete_task_view, name='delete_task'),
     path('goals/', views.goal_view, name='goals'),
     path('add_goal/', views.add_goal, name='add_goal'),

@@ -148,33 +148,36 @@
 </head>
 <body>
     <div class="calendar">
-        <h2>Calendar</h2>
+        <h2>Study Platform Calendar</h2>
         <div class="calendar-header">
-            <button id="prev">Previous</button>
+            <button id="prev">⬅️ Previous</button>
             <h2 id="monthYear"></h2>
-            <button id="next">Next</button>
+            <button id="next">Next ➡️</button>
         </div>
         <div class="days" id="days"></div>
     </div>
 
+    <!-- Event Modal -->
     <div id="eventModal">
         <div id="modalContent">
             <span id="closeModal">&times;</span>
             <h3>Add Event</h3>
-            <input type="text" id="eventInput" class="input" placeholder="Event Name" />
-            <button id="addEvent">Add Event</button>
+            <input type="text" id="eventInput" class="input" placeholder="Event name (e.g., Ace that exam!)" />
+            <button id="addEvent">Save Event</button>
         </div>
     </div>
 
+    <!-- Reminder Modal -->
     <div id="reminderModal">
         <div id="modalContent">
             <span id="closeReminderModal">&times;</span>
             <h3>Add Reminder</h3>
-            <input type="text" id="reminderInput" class="input" placeholder="Reminder" />
-            <button id="addReminder">Add Reminder</button>
+            <input type="text" id="reminderInput" class="input" placeholder="Reminder (e.g., Don’t forget the coffee!)" />
+            <button id="addReminder">Save Reminder</button>
         </div>
     </div>
 
+    <!-- Details Modal -->
     <div id="detailModal">
         <div id="modalContent">
             <span id="closeDetailModal">&times;</span>
@@ -238,7 +241,6 @@
                 });
                 dayDiv.addEventListener('dblclick', showDetails);
 
-                // Add event and reminder display using full date as key
                 const fullDateKey = `${year}-${month + 1}-${day}`;
                 if (events[fullDateKey]) {
                     const eventDiv = document.createElement('div');
@@ -271,8 +273,8 @@
         function showDetails(event) {
             const day = event.currentTarget.getAttribute('data-date');
             const fullDateKey = day;
-            const eventDetails = events[fullDateKey] || '';
-            const reminderDetails = reminders[fullDateKey] || '';
+            const eventDetails = events[fullDateKey] || 'No events today!';
+            const reminderDetails = reminders[fullDateKey] || 'No reminders today!';
 
             detailsContent.innerHTML = `<strong>Date:</strong> ${day}<br>
                                          <strong>Event:</strong> ${eventDetails}<br>
@@ -295,7 +297,7 @@
             const eventDay = document.querySelector('.day[data-event-modal="true"]');
             if (eventDay) {
                 const date = eventDay.getAttribute('data-date');
-                events[date] = eventInput.value;
+                events[date] = eventInput.value || 'Unnamed Event';
                 eventInput.value = '';
                 renderCalendar(currentDate);
                 eventDay.removeAttribute('data-event-modal');
@@ -305,7 +307,7 @@
         closeReminderModal.addEventListener('click', () => {
             reminderModal.style.display = 'none';
             const date = reminderModal.getAttribute('data-date');
-            reminders[date] = reminderInput.value;
+            reminders[date] = reminderInput.value || 'Mysterious Reminder';
             reminderInput.value = '';
             renderCalendar(currentDate);
         });

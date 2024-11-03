@@ -18,7 +18,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 LOGIN_URL = '/login/'  # Adjust this if you have a different URL for login
 
-LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = '/plan/'
+
 
 
 # Quick-start development settings - unsuitable for production
@@ -62,7 +63,7 @@ import os
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / "Timer/templates"],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

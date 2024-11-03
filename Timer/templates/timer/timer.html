@@ -7,7 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pomodoro Timer</title>
     <style>
-        {
+        /* Resetting margin and padding */
+        * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
@@ -24,12 +25,11 @@
         }
 
         .timer-container {
-            background: rgba(255,255,255,0)
-            backdrop-filter: blur(50px); /* Glassmorphism effect */
-            padding: 20px;
+            background: rgba(255, 255, 255, 0);
+            backdrop-filter: blur(5px); /* Glassmorphism effect */
+            padding: 50px;
             border-radius: 20px;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
-            backdrop-filter: transparent(20px);
             width: 80%;
             max-width: 1000px;
             display: flex;
@@ -53,12 +53,11 @@
             font-size: 4.5rem;
             margin-bottom: 25px;
             padding: 30px;
-            background-color: rgba(255, 255, 255, 0.2);
+            background-color: rgba(255, 255, 255, 0.1);
             border-radius: 50%;
             box-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
             animation: pulse 1.5s infinite;
         }
-
 
         .buttons {
             display: flex;
@@ -94,8 +93,8 @@
         }
 
         .customization input {
-            padding: 20px;
-            width: 90px;
+            padding: 10px;
+            width: 100px;
             border-radius: 5px;
             border: 1px solid #ddd;
             font-size: 40px;
@@ -158,7 +157,7 @@
             <div class="customization">
                 <label for="pomodoro-time">Pomodoro:</label>
                 <input type="number" id="pomodoro-time" placeholder="25" min="1"> min<br><br>
-                &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;<label for="break">Break:</label>
+                <label for="break">Break:</label>
                 <input type="number" id="break" placeholder="5" min="1"> min<br><br>
                 <button onclick="customizeTimer()">Set Time</button>
             </div>
@@ -172,7 +171,6 @@
         let currentMode = "Focus";
 
         const timerDisplay = document.getElementById('timer');
-        const modeDisplay = document.getElementById('mode');
 
         function startTimer() {
             if (!isPaused) {
@@ -192,7 +190,6 @@
             clearInterval(timer);
             timeLeft = 1500; // Reset to 25 minutes
             timerDisplay.innerHTML = "25:00";
-            modeDisplay.innerHTML = "Focus";
         }
 
         function countdown() {
@@ -215,7 +212,6 @@
                 currentMode = "Focus";
                 timeLeft = 1500; // 25 minutes
             }
-            modeDisplay.innerHTML = currentMode;
             startTimer();
         }
 

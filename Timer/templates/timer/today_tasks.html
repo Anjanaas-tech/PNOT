@@ -294,10 +294,20 @@
 
         function deleteTask(button) {
             const taskItem = button.closest('.task-item');
+            const taskTitle = taskItem.querySelector('.task-title').innerText.split(' - ')[0];
+            let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+        
+            // Find the index of the task to delete
+            const index = tasks.findIndex(task => task.taskTitle === taskTitle);
+            if (index !== -1) {
+                tasks.splice(index, 1); // Remove the task from the array
+                localStorage.setItem('tasks', JSON.stringify(tasks)); // Update localStorage
+            }
+        
+            // Remove the task from the display
             taskItem.remove();
-            updateTaskList();
         }
-
+        
         function editTask(button) {
             const taskItem = button.closest('.task-item');
             taskTitleInput.value = taskItem.querySelector('.task-title').innerText.split(' - ')[0];

@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study Planner Pro – Enhance Your Study Game!</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: #f9f9f9;
+            overflow-x: hidden;
+        }
+        .container {
+            max-width: 1050px;
+            margin: 20px auto;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+        header {
+            text-align: center;
+            padding: 20px 0;
+            border-bottom: 2px dashed #ff6f61;
+        }
+        h1 {
+            margin: 0;
+            font-size: 2.5em;
+            color: #ff6f61;
+        }
+        .schedule {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .time-slot {
+            background: #ffefc1;
+            border-radius: 8px;
+            padding: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            position: relative;
+        }
+        .time-slot:hover {
+            transform: scale(1.05);
+            background: #ffe8a1;
+        }
+        .time-slot span {
+            display: block;
+            font-weight: bold;
+            color: #333;
+        }
+        .save-schedule, .clear-schedule {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            border-radius: 4px;
+            margin: 10px;
+            transition: background 0.3s;
+        }
+        .clear-schedule:hover {
+            background: #e74c3c;
+        }
+        .study-tips {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📚 Study Planner Pro 📚</h1>
+            <input type="date" id="date-picker" onchange="loadSchedules()">
+        </header>
+
+        <main>
+            <section class="schedule">
+                <script>
+                    const scheduleContainer = document.querySelector('.schedule');
+                    const hours = ["12:00 AM", "1:00 AM", "2:00 AM", "3:00 AM", "4:00 AM", "5:00 AM", "6:00 AM", "7:00 AM", "8:00 AM", "9:00 AM", "10:00 AM", "11:00 AM", "12:00 PM", "1:00 PM", "2:00 PM", "3:00 PM", "4:00 PM", "5:00 PM", "6:00 PM", "7:00 PM", "8:00 PM", "9:00 PM", "10:00 PM", "11:00 PM"];
+                    hours.forEach(hour => {
+                        const timeSlot = document.createElement('div');
+                        timeSlot.classList.add('time-slot');
+                        timeSlot.innerHTML = `<span>${hour}</span>
+                                              <input type="text" placeholder="Plan here..." class="task-input">
+                                              <select class="task-type">
+                                                  <option value="">Choose Study Method</option>
+                                                  <option value="pomodoro">🍅 Pomodoro</option>
+                                                  <option value="flashcards">📝 Flashcards</option>
+                                                  <option value="spaced-repetition">📅 Spaced Repetition</option>
+                                                  <option value="active-recall">🤔 Active Recall</option>
+                                                  <option value="note-review">📖 Review Notes</option>
+                                              </select>`;
+                        scheduleContainer.appendChild(timeSlot);
+                    });
+                </script>
+            </section>
+
+            <div class="add-schedule">
+                <button class="save-schedule" onclick="saveSchedules()">Save 🌟</button>
+                <button class="clear-schedule" onclick="clearSchedules()">Clear ❌</button>
+            </div>
+
+            <div id="daily-schedule"></div>
+
+            <section class="study-tips">
+                <h3>Top Study Tips</h3>
+                <ul>
+                    <li><strong>Pomodoro:</strong> Work in focused 25-minute intervals followed by a 5-minute break. Every 4 cycles, take a longer break.</li>
+                    <li><strong>Spaced Repetition:</strong> Review material at intervals (e.g., 1 day, 3 days, 1 week) to boost retention.</li>
+                    <li><strong>Active Recall:</strong> Test yourself frequently rather than passively rereading notes.</li>
+                    <li><strong>Flashcards:</strong> Use flashcards to quiz yourself on key concepts and terms.</li>
+                    <li><strong>Note Review:</strong> Regularly review notes to reinforce learning and identify gaps in understanding.</li>
+                </ul>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        const MAX_DATES = 10;
+
+        function saveSchedules() {
+            const date = document.getElementById('date-picker').value;
+            if (!date) {
+                alert('Please select a date first!');
+                return;
+            }
+
+            const schedules = [];
+            const timeSlots = document.querySelectorAll('.time-slot');
+            timeSlots.forEach(slot => {
+                const task = slot.querySelector('.task-input').value;
+                const taskType = slot.querySelector('.task-type').value;
+                schedules.push({ time: slot.querySelector('span').innerText, task, taskType });
+            });
+
+            const storedSchedules = JSON.parse(localStorage.getItem('schedules')) || {};
+            storedSchedules[date] = schedules;
+            if (Object.keys(storedSchedules).length > MAX_DATES) {
+                delete storedSchedules[Object.keys(storedSchedules)[0]];
+            }
+            localStorage.setItem('schedules', JSON.stringify(storedSchedules));
+            alert('Schedules saved successfully!');
+            loadSchedules();
+        }
+
+        function loadSchedules() {
+            const date = document.getElementById('date-picker').value;
+            if (!date) return;
+
+            const timeSlots = document.querySelectorAll('.time-slot');
+            timeSlots.forEach(slot => {
+                slot.querySelector('.task-input').value = '';
+                slot.querySelector('.task-type').value = '';
+            });
+
+            const storedSchedules = JSON.parse(localStorage.getItem('schedules')) || {};
+            const savedSchedules = storedSchedules[date] || [];
+
+            savedSchedules.forEach((schedule, index) => {
+                if (timeSlots[index]) {
+                    timeSlots[index].querySelector('.task-input').value = schedule.task;
+                    timeSlots[index].querySelector('.task-type').value = schedule.taskType;
+                }
+            });
+
+            displayDailySchedule(date, savedSchedules);
+        }
+
+        function clearSchedules() {
+            const date = document.getElementById('date-picker').value;
+            if (!date) {
+                alert('Please pick a date to clear.');
+                return;
+            }
+
+            const storedSchedules = JSON.parse(localStorage.getItem('schedules')) || {};
+            delete storedSchedules[date];
+            localStorage.setItem('schedules', JSON.stringify(storedSchedules));
+            loadSchedules();
+            alert('Schedules cleared for this date.');
+        }
+
+        function displayDailySchedule(date, schedules) {
+            const scheduleList = schedules.map(s => `<li>${s.time}: ${s.task} (${s.taskType})</li>`).join('');
+            document.getElementById('daily-schedule').innerHTML = `<h3>Saved Schedule for ${date}</h3><ul>${scheduleList}</ul>`;
+        }
+
+        document.getElementById('date-picker').addEventListener('change', loadSchedules);
+    </script>
+</body>
+</html>

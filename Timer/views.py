@@ -11,6 +11,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from datetime import date
 from .models import Task, Goal, Note
 from .forms import NoteForm
+from .models import Note
 
 # Custom login view with a specific template path
 class CustomLoginView(LoginView):
@@ -178,3 +179,15 @@ def delete_note(request, note_id):
         except Note.DoesNotExist:
             return JsonResponse({'success': False, 'error': 'Note does not exist'}, status=404)
     return JsonResponse({'success': False, 'error': 'Invalid request method'}, status=400)
+
+from .models import Note
+
+def edit_note(request, note_id):
+    note = get_object_or_404(Note, id=note_id)
+    if request.method == 'POST':
+        # Process form submission to edit the note here
+        # Example:
+        note.content = request.POST.get('content', '')
+        note.save()
+        return redirect('notes')
+    return render(request, 'Timer/edit_note.html', {'note': note})

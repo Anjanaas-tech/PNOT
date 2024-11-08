@@ -1,14 +1,11 @@
 from django.contrib import admin
-from .models import Task, Note, Goal
-
-# Admin configuration for Task model
-class TaskAdmin(admin.ModelAdmin):
-    list_display = ('title', 'completed', 'created_at')  # Adjust based on your model
-    list_filter = ('completed',)
+from .models import Task, Note, Goal,Schedule,Event
 
 # Register models with the admin site
-admin.site.register(Task, TaskAdmin)
+admin.site.register(Task)
 admin.site.register(Note)
 admin.site.register(Goal)
+admin.site.register(Schedule)
+admin.site.register(Event)
 
 

@@ -12,6 +12,11 @@ from datetime import date
 from .models import Task, Goal, Note
 from .forms import NoteForm
 from .models import Note
+from .forms import TaskForm
+from .models import Schedule
+from .forms import ScheduleForm
+from .models import Event
+from .forms import EventForm
 
 # Custom login view with a specific template path
 class CustomLoginView(LoginView):
@@ -51,13 +56,33 @@ def user_plan(request):
 
 # View for displaying today's tasks
 @login_required
-def today_tasks_view(request):
-    tasks = Task.objects.filter(user=request.user, due_date=date.today())
-    return render(request, 'timer/today_tasks.html', {'tasks': tasks})
+def today_tasks(request):
+    if request.method == "POST":
+        form = TaskForm(request.POST)
+        if form.is_valid():
+            task = form.save(commit=False)
+            task.user = request.user
+            task.save()
+            return redirect('today_tasks')  # Redirect to the same page or any other page
+    else:
+        form = TaskForm()
+
+    tasks = Task.objects.filter(user=request.user, completed=False)  # Get only incomplete tasks
+    return render(request, 'timer/today_tasks.html', {'form': form, 'tasks': tasks})
 
 # Calendar view
 def calendar_view(request):
-    return render(request, 'timer/calendar_view.html')
+    if request.method == 'POST':
+        form = EventForm(request.POST)
+        if form.is_valid():
+            event = form.save(commit=False)
+            event.user = request.user
+            event.save()
+            return redirect('calendar_view')  # Update with your URL name
+    else:
+        form = EventForm()
+    events = Event.objects.filter(user=request.user)
+    return render(request, 'timer/calendar_view.html', {'form': form, 'events': events})
 
 # Timer view
 def timer_view(request):
@@ -65,7 +90,16 @@ def timer_view(request):
 
 # Schedule view
 def schedule_view(request):
-    return render(request, 'timer/schedule.html')
+    if request.method == 'POST':
+        form = ScheduleForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('schedule')  # Adjust to your URL name
+    else:
+        form = ScheduleForm()
+    
+    schedules = Schedule.objects.all()
+    return render(request, 'timer/schedule.html', {'form': form, 'schedules': schedules})
 
 # View to delete a task
 @login_required

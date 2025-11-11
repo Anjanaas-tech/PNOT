@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Study Plan</title>
+    <style>
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url('/static/images/plan.jpg');
+            background-size: cover;
+            background-position: center;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+         /* Apply black bold border to all text */
+         * {
+            -webkit-text-stroke: 1px black; /* Bold black border for Webkit browsers */
+            font-weight: bold; /* Make text bold */
+            text-shadow: 
+                -1px -1px 0 #000,  
+                 1px -1px 0 #000,
+                 -1px  1px 0 #000,
+                  1px  1px 0 #000; /* Black border for broader browser support */
+        }
+
+        .main-content {
+            width: 80%;
+            margin: 30px auto;
+            padding: 10px;
+            max-width: 1200px;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0);
+            background: rgba(182, 72, 250, 0.26) /* Transparent white */
+            backdrop-filter: blur(50px); /* Glassmorphism effect */
+            text-align: center;
+            animation: floatIn 1s ease-in-out;
+        }
+
+        @keyframes floatIn {
+            0% {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        h1 {
+            font-size: 48px;
+            color: #ffeb3b; /* Bright color for header */
+            margin-bottom: 10px;
+            text-shadow: 4px 4px 10px rgba(0, 0, 0, 1);
+            animation: bounceIn 1.5s ease-out;
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+
+        h1:hover {
+            transform: scale(1.1);
+            color: #fff700; /* Lighter yellow on hover */
+        }
+
+        @keyframes bounceIn {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        .study-plan {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* Adjust the plan-column size */
+        .plan-column {
+            width: 60%; /* Reducing the width */
+            background-color: rgba(255, 255, 255, 0); /* Fully transparent */
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 1);
+            padding: 10px; /* Reduce padding to make the box smaller */
+            margin: 20px auto; /* Centered */
+            transition: transform 0.4s, box-shadow 0.4s;
+            animation: fadeInUp 1s ease;
+        }
+
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .side-menu ul {
+            list-style-type: none;
+            padding: 0;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* 3 columns */
+            grid-template-rows: repeat(2, 1fr); /* 2 rows */
+            grid-gap: 15px; /* Slightly smaller gap between items */
+        }
+
+        .side-menu ul li a {
+            text-decoration: none;
+            font-size: 20px; /* Slightly smaller font */
+            color: #ffff;
+            background-color: #ffeb3b;
+            padding: 10px 20px; /* Reduced padding for a more compact feel */
+            border-radius: 10px; /* Slightly less rounded for a squarer look */
+            display: inline-block;
+            text-align: center;
+            transition: background-color 0.3s, transform 0.3s;
+            height: 60px; /* Set fixed height for more square-like appearance */
+            display: flex;
+            justify-content: center;
+            align-items: center; /* Center text vertically */
+            animation: fadeInUp 1.5s ease;
+        }
+
+        .side-menu ul li a:hover {
+            background-color: #ffd700;
+            transform: scale(1.05) rotate(-5deg);
+        }
+
+        .footer-joke {
+            margin-top: 40px;
+            font-size: 20px;
+            color: #ffeb3b;
+            animation: fadeInUp 2s ease;
+            animation-delay: 1s;
+        }
+
+        .footer-joke span {
+            font-size: 25px;
+            color: #ffd700;
+            animation: pulsate 2s infinite;
+        }
+
+        @keyframes pulsate {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.2);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 500px) {
+            .plan-column {
+                width: 100%;
+                margin-bottom: 20px;
+            }
+
+            h1 {
+                font-size: 36px;
+            }
+
+            h2 {
+                font-size: 24px;
+            }
+
+            .side-menu ul {
+                grid-template-columns: repeat(2, 1fr); /* 2 columns for small screens */
+            }
+        }
+
+        @media (max-width: 500px) {
+            .side-menu ul {
+                grid-template-columns: 1fr; /* 1 column for extra small screens */
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="main-content">
+        <h1>Your Study Plan Awaits! 🚀</h1>
+
+        <!-- Links to App Features -->
+        <div class="study-plan">
+            <div class="plan-column side-menu">
+                <h2>Study Tools</h2>
+                <ul>
+                    <li><a href="{% url 'today_tasks' %}">To-do List</a></li>
+                    <li><a href="{% url 'calendar_view' %}">Full Calendar</a></li>
+                    <li><a href="{% url 'timer' %}">Pomodoro Timer</a></li>
+                    <li><a href="{% url 'analytics' %}">Progress Analytics</a></li>
+                    <li><a href="{% url 'goals' %}">Goal Setting</a></li>
+                    <li><a href="{% url 'notes' %}">Notes</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-joke">
+            Remember: <span>Procrastination</span> is like a credit card. It’s fun until you get the bill! 💸
+        </div>
+    </div>
+
+</body>
+</html>

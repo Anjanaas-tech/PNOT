@@ -22,7 +22,7 @@
 > Key screens from the FLYNEXT user experience:
 
 ### 🏠 Homepage
-![Homepage](screenshot/home1.jpg)  
+![Homepage](Screenshot/home.jpg)  
 
 
 

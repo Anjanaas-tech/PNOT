@@ -41,12 +41,21 @@ Key screens from the Procrastinot experience:
 
 ### 🏠 Homepage
 ![Homepage](Screenshot/home.jpg)  
+![Homepage](Screenshot/home1.jpg)
+![Homepage](Screenshot/home2.jpg)
+![Homepage](Screenshot/home3.jpg)
+![Homepage](Screenshot/register.jpg)
+![Homepage](Screenshot/login.jpg)
 ![Homepage](Screenshot/planner.jpg)  
-![Homepage](Screenshot/calender.jpg) 
+![Homepage](Screenshot/calender.jpg)
+![Homepage](Screenshot/calandarevents.jpg)
 ![Homepage](Screenshot/pomodoro.jpg)  
 ![Homepage](Screenshot/planner2.jpg)  
+![Homepage](Screenshot/planner3.jpg)  
 ![Homepage](Screenshot/goal.jpg) 
-![Homepage](Screenshot/note.jpg)  
+![Homepage](Screenshot/goal2.jpg) 
+![Homepage](Screenshot/note.jpg)
+![Homepage](Screenshot/note1.jpg)
 
 
 ---

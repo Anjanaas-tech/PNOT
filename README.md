@@ -1,25 +1,43 @@
-﻿# FLYNEXT ✈️
+﻿🧠 Procrastinat – Virtual Study Planner
 
-**FLYNEXT** is a full-featured airline ticket reservation platform built to make flight booking seamless, fast, and intuitive. With user account management, real-time search, secure payments, and ticket handling, FLYNEXT brings the power of modern airline systems to the web.
+Procrastinat is a virtual study planner designed to help students and professionals overcome procrastination and stay focused. It combines intelligent scheduling, a built-in Pomodoro timer, task management, and personalized study tips — all in one platform.
 
----
+With a clean, distraction-free interface and productivity-driven features, Procrastinat empowers users to manage their time efficiently and achieve their goals with consistency.
 
-## 🚀 Features
+🚀 Features
 
-- 🔐 User registration and login system
-- 📅 Real-time flight search with booking options
-- 🧾 E-ticket generation and print view
-- 👤 Profile and booking history dashboard
-- ✈️ Class-based flight filtering
-- 🛡️ Secure and simple ticket cancellation/resume process
-- 🧭 Beautiful landing page and responsive design
-- 🖥️ Admin dashboard for flight and user management
+⏱️ Pomodoro Timer – Stay productive with focused study sessions and timed breaks.
+🗓️ Smart Scheduler – Plan study sessions, track progress, and organize daily tasks easily.
+✅ Task Management – Add, edit, and prioritize study or work tasks.
+💡 Study Tips Dashboard – Get AI-generated motivation and focus tips.
+📊 Progress Tracker – Visualize daily, weekly, and monthly achievements.
+🌙 Dark/Light Mode – Switch themes to match your study mood.
+👤 User Accounts – Sign up, log in, and securely store your progress.
+📱 Responsive UI – Works seamlessly across desktop, tablet, and mobile devices.
 
+🛠️ Tech Stack
+
+Frontend: HTML, CSS, JavaScript
+
+Backend: Python (Django Framework)
+
+Database: SQLite
+
+Additional Tools: Django Templates, Bootstrap/Tailwind CSS, Chart.js for analytics
+
+📸 Screenshots
+
+Key screens from the Procrastinat experience:
+
+🏠 Homepage – Clean dashboard with quick access to timer and today’s schedule.
+⏱️ Pomodoro Page – Customizable timer with task association.
+📅 Planner View – Interactive calendar to organize and reschedule study blocks.
+📊 Progress Tracker – Graphs showing productivity statistics and achievements.
 ---
 
 ## 📸 Screenshots
 
-> Key screens from the FLYNEXT user experience:
+> Key screens from the Procrastinot user experience:
 
 ### 🏠 Homepage
 ![Homepage](Screenshot/home.jpg)  

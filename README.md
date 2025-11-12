@@ -10,7 +10,7 @@ With a clean, distraction-free interface and productivity-driven features, Procr
 🗓️ Smart Scheduler – Plan study sessions, track progress, and organize daily tasks easily.
 ✅ Task Management – Add, edit, and prioritize study or work tasks.
 💡 Study Tips Dashboard – Get AI-generated motivation and focus tips.
-📊 Progress Tracker – Visualize daily, weekly, and monthly achievements.
+📊 Progress Tracker – Visualize daily, weekly, and monthly achievement.
 🌙 Dark/Light Mode – Switch themes to match your study mood.
 👤 User Accounts – Sign up, log in, and securely store your progress.
 📱 Responsive UI – Works seamlessly across desktop, tablet, and mobile devices.

@@ -1,6 +1,6 @@
-﻿🧠 Procrastinat – Virtual Study Planner
+﻿🧠 Procrastinot – Virtual Study Planner
 
-Procrastinat is a virtual study planner designed to help students and professionals overcome procrastination and stay focused. It combines intelligent scheduling, a built-in Pomodoro timer, task management, and personalized study tips — all in one platform.
+Procrastinot is a virtual study planner designed to help students and professionals overcome procrastination and stay focused. It combines intelligent scheduling, a built-in Pomodoro timer, task management, and personalized study tips — all in one platform.
 
 With a clean, distraction-free interface and productivity-driven features, Procrastinat empowers users to manage their time efficiently and achieve their goals with consistency.
 
@@ -27,7 +27,7 @@ Additional Tools: Django Templates, Bootstrap/Tailwind CSS, Chart.js for analyti
 
 📸 Screenshots
 
-Key screens from the Procrastinat experience:
+Key screens from the Procrastinot experience:
 
 🏠 Homepage – Clean dashboard with quick access to timer and today’s schedule.
 ⏱️ Pomodoro Page – Customizable timer with task association.

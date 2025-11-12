@@ -45,16 +45,3 @@ Key screens from the Procrastinat experience:
 
 
 ---
-
-## 🛠️ Getting Started
-
-To set up and run the project locally:
-
-```bash
-git clone https://github.com/yourusername/FLYNEXT.git
-cd FLYNEXT
-
-# Install dependencies and run (if using Django, for example)
-pip install -r requirements.txt
-python manage.py migrate
-python manage.py runserver
